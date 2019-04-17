@@ -22,6 +22,6 @@ cy_sqlite.o : cy_sqlite.cpp
 
 $(OBJ)
 clean:
-	rm -rf *.o cy_sqlite
+	rm -rf *.o cy_sqlite cy_test.db
 
 
