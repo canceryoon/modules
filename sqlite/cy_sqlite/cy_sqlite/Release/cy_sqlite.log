@@ -1,0 +1,7 @@
+﻿  main.cpp
+  sqlite3.c
+  코드를 생성하고 있습니다.
+  Previous IPDB not found, fall back to full compilation.
+  All 1808 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  코드를 생성했습니다.
+  cy_sqlite.vcxproj -> C:\canceryoon\git\modules\sqlite\cy_sqlite\Release\cy_sqlite.exe

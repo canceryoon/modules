@@ -15,13 +15,13 @@ int main()
 	cydb._open_db(_name);
 	cout << cydb.err << endl;
 
-	cydb._execute_db(CREATE_TABLE);
+	cydb._execute_db((char*)CREATE_TABLE);
 	cout << cydb.err << endl;
 
-	cydb._execute_db(INSERT_TABLE);
+	cydb._execute_db((char*)INSERT_TABLE);
 	cout << cydb.err << endl;
 
-	cydb._execute_db(SELECT_TABLE);
+	cydb._execute_db((char*)SELECT_TABLE);
 	cout << cydb.err << endl;
 
 	cydb._close_db();
