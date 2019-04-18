@@ -19,6 +19,7 @@ using namespace std;
 class CY_SQLITE {
 private:
 	sqlite3 *_cy_sqlite;
+	char* err;
 
 public:
 	CY_SQLITE() {};
@@ -29,6 +30,6 @@ public:
 	int _close_db();
 	int _execute_db(char* query);
 
-	char* err;
+	const char* _print_status();
 };
 #endif

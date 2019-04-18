@@ -61,3 +61,10 @@ int CY_SQLITE::_execute_db(char* query)
 	err = (char*)CY_DB_QUERY_SUCCESS;
 	return 1;
 }
+
+const char* CY_SQLITE::_print_status()
+{
+	const char* rErr = err;
+	err = (char*)"None";
+	return rErr; 
+}

@@ -13,19 +13,20 @@ int main()
 
 	char* _name = (char*)"cy_test.db";
 	cydb._open_db(_name);
-	cout << cydb.err << endl;
+	cout << cydb._print_status() << endl;
 
 	cydb._execute_db((char*)CREATE_TABLE);
-	cout << cydb.err << endl;
+	cout << cydb._print_status() << endl;
 
 	cydb._execute_db((char*)INSERT_TABLE);
-	cout << cydb.err << endl;
+	cout << cydb._print_status() << endl;
 
 	cydb._execute_db((char*)SELECT_TABLE);
-	cout << cydb.err << endl;
+	cout << cydb._print_status() << endl;
 
 	cydb._close_db();
-	cout << cydb.err << endl;
+	cout << cydb._print_status() << endl;
+	cout << cydb._print_status() << endl;
 
 	return 1;
 }
