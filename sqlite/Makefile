@@ -4,7 +4,7 @@ OBJS=cy_sqlite.o
 SRCS=cy_sqlite.cpp main.cpp
 LIBS=
 INCS=
-TARGET=cy_sqlite
+TARGET=cysqlite
 
 INCDIR=-I/usr/include
 LIB64DIR=-L/usr/lib64
@@ -22,6 +22,6 @@ cy_sqlite.o : cy_sqlite.cpp
 
 $(OBJ)
 clean:
-	rm -rf *.o cy_sqlite cy_test.db
+	rm -rf *.o cysqlite cy_test.db
 
 
