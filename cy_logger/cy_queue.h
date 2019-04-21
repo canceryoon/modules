@@ -18,7 +18,7 @@ class CYQueue{
 private:
 	uint total_size_;
 	int used_size_;
-	cy_queue *q_;
+	cy_queue *q_; //head
 
 protected:
 	void FreeCyqueue(cy_queue *rm);
@@ -29,7 +29,8 @@ public:
 	CYQueue(uint _total_size, void *_data, size_t _data_len);
 
 	~CYQueue();
-
+	
+	void InsertQueue(void* _data, size_t _data_len);
 	void PrintQueue();
 	//CYQueue(uint _total_size, cy_queue *_data)
 };
