@@ -47,21 +47,21 @@ void CYQueue::FreeCyqueue(cy_queue *rm)
 	free(rm);
 }
 
-void CYQueue::InsertQueue(void* _data, size_t _data_len)
+void CYQueue::PushQueue(void* _data, size_t _data_len)
 {
 	cy_queue *newNode = NULL;
 	newNode = (cy_queue*)malloc(sizeof(cy_queue));
 
 	newNode->qdata = (cy_data*)malloc(sizeof(cy_data));
+	newNode->qdata->data = (void*)malloc(sizeof(char)*_data_len);
 	memcpy(newNode->qdata->data, _data, _data_len);
 	newNode->qdata->data_size = _data_len;
 
-	cy_queue *head_parent = q_->parent;
-	cy_queue *parent_next = q_->parent->next;
 
-	parent_next = newNode;
+	q_->parent->next = newNode;
+	q_->parent = newNode;
 	newNode->next = q_;
-	newNode->parent = head_parent;
+	used_size_++;
 }
 
 void CYQueue::PrintQueue()
@@ -75,7 +75,7 @@ void CYQueue::PrintQueue()
 	printf("[CYQUEUE::INFO] Print queue.\n");
 	unsigned int cnt = 1;
 	cy_queue *tmp = q_;
-	while(tmp->next != q_ && q_ != tmp)
+	while(tmp->next != q_ && q_ != tmp->parent)
 	{
 		printf("%d : [%s]\n", cnt++, (char*)tmp->qdata->data);
 		tmp = tmp->next;

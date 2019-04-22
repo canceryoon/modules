@@ -30,7 +30,7 @@ public:
 
 	~CYQueue();
 	
-	void InsertQueue(void* _data, size_t _data_len);
+	void PushQueue(void* _data, size_t _data_len);
 	void PrintQueue();
 	//CYQueue(uint _total_size, cy_queue *_data)
 };
