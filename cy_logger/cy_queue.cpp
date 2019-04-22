@@ -64,6 +64,23 @@ void CYQueue::PushQueue(void* _data, size_t _data_len)
 	used_size_++;
 }
 
+void *CYQueue::PopQueue(size_t *outLen)
+{
+	char *data = (char*)malloc(sizeof(char)*q_->qdata->data_size);
+	memcpy(data, q_->qdata->data, q_->qdata->data_size);
+	*outLen = q_->qdata->data_size;
+
+	cy_queue *_rm = q_;
+
+	q_->parent->next = q_->next;
+	q_->next->parent = q_->parent;
+	q_ = q_->next;
+
+	FreeCyqueue(_rm);
+
+	return (void*)data;
+}
+
 void CYQueue::PrintQueue()
 {
 	if(0 == used_size_)

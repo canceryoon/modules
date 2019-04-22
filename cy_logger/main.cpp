@@ -19,5 +19,13 @@ int main()
 	printf("PRINT\n");
 	cyq.PrintQueue();
 
+	printf("POP\n");
+	size_t pop_len;
+	char *pop_data = static_cast<char*>(cyq.PopQueue(&pop_len));
+	printf("pop data: [%d][%s]\n", pop_len, pop_data);
+
+	printf("PRINT\n");
+	cyq.PrintQueue();
+
 	return 1;
 }

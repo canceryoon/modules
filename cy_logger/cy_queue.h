@@ -31,6 +31,7 @@ public:
 	~CYQueue();
 	
 	void PushQueue(void* _data, size_t _data_len);
+	void *PopQueue(size_t *outLen);
 	void PrintQueue();
 	//CYQueue(uint _total_size, cy_queue *_data)
 };
