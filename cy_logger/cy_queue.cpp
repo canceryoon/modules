@@ -10,7 +10,8 @@ CYQueue::CYQueue(uint _total_size, void *_data, size_t _data_len)
 	total_size_ = _total_size;
 
 	cy_data *dummy = (cy_data*)malloc(sizeof(cy_data));
-	dummy->data = _data;
+	dummy->data = (void*)malloc(sizeof(char)*_data_len);
+	memcpy(dummy->data, _data, _data_len);
 	dummy->data_size = _data_len;
 
 	q_ = (cy_queue*)malloc(sizeof(cy_queue));
@@ -23,7 +24,6 @@ CYQueue::CYQueue(uint _total_size, void *_data, size_t _data_len)
 
 CYQueue::~CYQueue()
 {
-	printf("Destructor\n");
 	cy_queue *dummy;
 	while(q_->next != q_&& q_ != q_->parent)
 	{
@@ -33,9 +33,7 @@ CYQueue::~CYQueue()
 		FreeCyqueue(dummy);
 		used_size_--;
 	}
-	printf("End Destructor\n");
 	FreeCyqueue(q_);
-	printf("End Destructor\n");
 }
 
 void CYQueue::FreeCydata(cy_data *rm)
