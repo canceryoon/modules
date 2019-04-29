@@ -90,7 +90,7 @@ void CYQueue::PrintQueue()
 	}
 
 	printf("[CYQUEUE::INFO] Print queue.\n");
-	unsigned int cnt = 1;
+	uint cnt = 1;
 	cy_queue *tmp = q_;
 	while(tmp->next != q_ && q_ != tmp->parent)
 	{
