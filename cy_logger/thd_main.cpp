@@ -11,7 +11,7 @@ const char *msg = {"THD1 END"};
 void *_func1(void *_data)
 {
 	cout << (char*)_data << endl;
-	thd.ThreadExit(0, msg);
+	thd.Exit(0, msg);
 }
 
 void *_func2(void *_data)
@@ -23,11 +23,11 @@ int main()
 {
 	char *retval;
 	int ret = 0;
-	ret = thd.ThreadCreate(0, _func1, (void*)"THD1" );
-	ret = thd.ThreadCreate(1, _func2, (void*)"THD2" );
+	ret = thd.Create(0, _func1, (void*)"THD1" );
+	ret = thd.Create(1, _func2, (void*)"THD2" );
 
-	ret = thd.ThreadJoin(1);
-	ret = thd.ThreadJoin(0, &retval);
+	ret = thd.Join(1);
+	ret = thd.Join(0, &retval);
 	
 	std::cout << "THD 1 Join: " << retval << std::endl;
 	std::cout << "[END]" << std::endl;
