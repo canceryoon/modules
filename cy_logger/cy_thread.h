@@ -1,3 +1,5 @@
+#ifndef _CY_THREAD_H
+#define _CY_THREAD_H
 #include <pthread.h>
 
 #include "common.h"
@@ -9,33 +11,16 @@ class CYThread{
 		uint thd_size_;
 	
 	public:
+		CYThread(){};
 		CYThread(uint _size);
+		CYThread(const CYThread& _th);
 		~CYThread();
 
-		int ThreadCreate(uint _idx, void *(*_func)(void*), void *_argc, void *_attr=NULL); 
-		int ThreadJoin(uint _idx, char **_ret=NULL);
-		void ThreadExit(uint _idx, const void *_ret);
-		bool IsThreadAlive(uint _idx);
+		int Create(uint _idx, void *(*_func)(void*), void *_argc, void *_attr=NULL); 
+		int Join(uint _idx, char **_ret=NULL);
+		void Exit(uint _idx, const void *_ret);
+		bool IsAlive(uint _idx);
+
+		CYThread& operator=(const CYThread &T);
 };
-
-/*
-class CYThreadManager{
-	private:
-		CYThread thread_;
-		uint thread_size_;
-		pthread_mutex_t mutex_;
-
-	public:
-		CYThreadManager(uint _thread_size, pthread_mutex_t _mutex);
-		~CYThreadManager();
-		
-		int ThreadCreate(uint _idx, void *_func, void *_argc, void *_attr=NULL);
-		int ThreadJoin(uint _idx, void *_ret=NULL);
-		void ThreadExit(uint _idx, void *_ret);
-
-		int Lock();
-		int TryLock();
-		int Unlock();
-		//int LockDestroy();
-};
-*/
+#endif

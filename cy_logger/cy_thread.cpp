@@ -13,12 +13,28 @@ CYThread::CYThread(uint _size)
 	thd_size_ = _size;
 }
 
+CYThread::CYThread(const CYThread& _th)
+{
+	thd_ = _th.thd_;
+	thd_state_ = _th.thd_state_;
+	thd_size_ = _th.thd_size_;
+}
+
+CYThread& CYThread::operator = (const CYThread &T)
+{
+	thd_ = T.thd_;
+	thd_state_ = T.thd_state_;
+	thd_size_ = T.thd_size_;
+
+	return *this;
+}
+
 CYThread::~CYThread()
 {
 	free(thd_);	
 }
 
-int CYThread::ThreadCreate(uint _idx, void *(*_func)(void*), void *_argc, void *_attr)
+int CYThread::Create(uint _idx, void *(*_func)(void*), void *_argc, void *_attr)
 {
 	int ret = pthread_create(&thd_[_idx], (const pthread_attr_t*)_attr, _func, _argc);
 	if( 0 != ret )
@@ -30,7 +46,7 @@ int CYThread::ThreadCreate(uint _idx, void *(*_func)(void*), void *_argc, void *
 	return ret;
 }
 
-int CYThread::ThreadJoin(uint _idx, char **_ret)
+int CYThread::Join(uint _idx, char **_ret)
 {
 	void *retval;
 	int ret = pthread_join(thd_[_idx], (void**)_ret);
@@ -46,13 +62,12 @@ int CYThread::ThreadJoin(uint _idx, char **_ret)
 	return ret;
 }
 
-void CYThread::ThreadExit(uint _idx, const void *_ret)
+void CYThread::Exit(uint _idx, const void *_ret)
 {
 	pthread_exit((void*)_ret);
 }
 
-bool CYThread::IsThreadAlive(uint _idx)
+bool CYThread::IsAlive(uint _idx)
 {
 	return thd_state_[_idx] == 1 ;
 }
-
