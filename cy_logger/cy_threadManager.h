@@ -12,6 +12,7 @@ class CYThreadManager{
 		pthread_mutex_t mutex_;
 
 	public:
+		CYThreadManager();
 		CYThreadManager(uint _thread_size, pthread_mutex_t _mutex);
 		~CYThreadManager();
 		

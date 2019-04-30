@@ -25,6 +25,7 @@ protected:
 	void FreeCydata(cy_data *rm);
 
 public:
+	CYQueue(){};
 	CYQueue(uint _total_size): total_size_(_total_size), used_size_(0){q_ = NULL;}
 	CYQueue(uint _total_size, void *_data, size_t _data_len);
 
