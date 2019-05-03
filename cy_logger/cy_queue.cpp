@@ -1,9 +1,17 @@
+#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "cy_queue.h"
 
+CYQueue::CYQueue(uint _total_size):total_size_(_total_size), used_size_(0)
+{
+	q_ = (cy_queue*)malloc(sizeof(cy_queue));
+	q_->qdata = NULL;
+	q_->next = NULL;
+	q_->parent = NULL;
+}
 
 CYQueue::CYQueue(uint _total_size, void *_data, size_t _data_len)
 {
@@ -25,7 +33,8 @@ CYQueue::CYQueue(uint _total_size, void *_data, size_t _data_len)
 CYQueue::~CYQueue()
 {
 	cy_queue *dummy;
-	while(q_->next != q_&& q_ != q_->parent)
+	while((q_->next != q_&& q_ != q_->parent) 
+			&&!(q_->next == NULL && q_->qdata == NULL && q_->parent == NULL && used_size_ == 0))
 	{
 		dummy = q_;
 		q_ = dummy->next;
@@ -33,7 +42,17 @@ CYQueue::~CYQueue()
 		FreeCyqueue(dummy);
 		used_size_--;
 	}
-	FreeCyqueue(q_);
+	if(!(q_->next == NULL && q_->qdata == NULL && q_->parent == NULL && used_size_ == 0))
+		FreeCyqueue(q_);
+}
+
+CYQueue& CYQueue::operator = (const CYQueue &T)
+{
+	this->total_size_ = T.total_size_;
+	this->used_size_ = used_size_;
+	this->q_ = T.q_;
+
+	return *this;
 }
 
 void CYQueue::FreeCydata(cy_data *rm)
@@ -43,6 +62,11 @@ void CYQueue::FreeCydata(cy_data *rm)
 }
 void CYQueue::FreeCyqueue(cy_queue *rm)
 {
+	if(q_->next == NULL && q_->qdata == NULL && q_->parent == NULL && used_size_ == 0)
+	{
+		free(q_);
+		return ;
+	}
 	FreeCydata(rm->qdata);
 	free(rm);
 }
@@ -58,9 +82,17 @@ void CYQueue::PushQueue(void* _data, size_t _data_len)
 	newNode->qdata->data_size = _data_len;
 
 
-	q_->parent->next = newNode;
-	q_->parent = newNode;
-	newNode->next = q_;
+	if( 0 == used_size_ )
+	{
+
+	}
+	else
+	{
+		q_->parent->next = newNode;
+		q_->parent = newNode;
+		newNode->next = q_;
+	}
+
 	used_size_++;
 }
 
