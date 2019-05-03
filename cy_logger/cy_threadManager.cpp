@@ -10,7 +10,7 @@ CYThreadManager::CYThreadManager(uint _thread_size, pthread_mutex_t _mutex)
 	thread_size_ = _thread_size;
 
 	mutex_ = _mutex;
-	pthread_mutex_init(&mutex_, NULL);
+//	pthread_mutex_init(&mutex_, NULL);
 }
 
 CYThreadManager::~CYThreadManager()
