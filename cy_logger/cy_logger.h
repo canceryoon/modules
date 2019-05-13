@@ -7,9 +7,13 @@
 #include "cy_threadManager.h"
 #include "cy_queue.h"
 
+typedef struct _cy_log_data{
+	CYQueue *cyq;
+	char *msg;
+}cy_log_data;
+
 class CYLogger{
 	private:
-		CYQueue queue_;
 		CYThreadManager thd_;
 
 	public:
@@ -17,9 +21,11 @@ class CYLogger{
 		CYLogger(uint _thd_cnt, pthread_mutex_t _mutex, uint _queue_size);
 		~CYLogger(){};
 
-		void SetPushThd(uint _thd_idx, void *_argc, void *_attr=NULL);
-		void SetPopThd(uint _thd_idx, void *_argc, void *_attr=NULL);
-		//void* PushMessage(void *_argc);
-		//void* PopMessage(void *_argc);
+		void SetPushThd(uint _thd_idx, void *(*_func)(void*), void *_argc, void *_attr=NULL);
+		void SetPopThd(uint _thd_idx, void *(*_func)(void*), void *_argc, void *_attr=NULL);
+		bool ThdIsAlive(uint _idx);
 };
+
+void* PushMessage(void *_argc);
+void* PopMessage(void *_argc);
 #endif

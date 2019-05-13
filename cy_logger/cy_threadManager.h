@@ -19,6 +19,7 @@ class CYThreadManager{
 		int ThreadCreate(uint _idx, void *(*_func)(void*), void *_argc, void *_attr=NULL);
 		int ThreadJoin(uint _idx, char **_ret=NULL);
 		bool ThreadExit(uint _idx, void *_ret);
+		bool ThreadIsAlive(uint _idx);
 
 		int Lock();
 		int TryLock();

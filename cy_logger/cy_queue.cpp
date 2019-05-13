@@ -44,6 +44,7 @@ CYQueue::~CYQueue()
 	}
 	if(!(q_->next == NULL && q_->qdata == NULL && q_->parent == NULL && used_size_ == 0))
 		FreeCyqueue(q_);
+
 }
 
 CYQueue& CYQueue::operator = (const CYQueue &T)
@@ -84,7 +85,9 @@ void CYQueue::PushQueue(void* _data, size_t _data_len)
 
 	if( 0 == used_size_ )
 	{
-
+		q_=newNode;
+		q_->next = q_;
+		q_->parent = q_;
 	}
 	else
 	{
@@ -109,6 +112,7 @@ void *CYQueue::PopQueue(size_t *outLen)
 	q_ = q_->next;
 
 	FreeCyqueue(_rm);
+	used_size_--;
 
 	return (void*)data;
 }

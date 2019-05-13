@@ -15,7 +15,7 @@ CYThreadManager::CYThreadManager(uint _thread_size, pthread_mutex_t _mutex)
 
 CYThreadManager::~CYThreadManager()
 {
-	thread_.~CYThread();
+	//thread_.~CYThread();
 	pthread_mutex_destroy(&mutex_);
 }
 
@@ -42,7 +42,10 @@ int CYThreadManager::ThreadJoin(uint _idx, char **_ret)
 		return -2;
 	}
 
-	int ret = thread_.Join(_idx, _ret);
+	int ret = 0;
+	if( thread_.IsAlive(_idx))
+		ret = thread_.Join(_idx, _ret);
+
 	if( 0 != ret )
 		return -1;
 
@@ -60,6 +63,11 @@ bool CYThreadManager::ThreadExit(uint _idx, void *_ret)
 	thread_.Exit(_idx, _ret);
 
 	return true;
+}
+
+bool CYThreadManager::ThreadIsAlive(uint _idx)
+{
+	return thread_.IsAlive(_idx);
 }
 
 int CYThreadManager::Lock()
@@ -88,3 +96,4 @@ int CYThreadManager::TryLock()
 
 	return 0;
 }
+
